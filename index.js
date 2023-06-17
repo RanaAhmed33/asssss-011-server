@@ -27,7 +27,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        // await client.connect();
+        client.connect();
 
         const AddToysCollection = client.db("ToysProducts").collection("Products");
         // Creating index on two fields
@@ -49,7 +49,7 @@ async function run() {
 
         //Get the Toys
         app.get("/allToys", async (req, res) => {
-            const allToys = AddToysCollection.find();
+            const allToys = AddToysCollection.find({});
             const result = await allToys.limit(20).toArray();
             res.send(result);
         });
@@ -148,7 +148,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Hello World.....!");
 });
 
 app.listen(port, () => {
